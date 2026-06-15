@@ -4,10 +4,14 @@ Aplicación principal FastAPI.
 Backend para pronóstico de series temporales con ARIMA/SARIMA.
 Diseñado para consumirse desde el frontend React en localhost:5173.
 """
+from dotenv import load_dotenv
+load_dotenv()  # Carga ANTHROPIC_API_KEY desde .env antes de importar los routers
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.routers import exploration, forecast
+from app.routers import exploration, forecast, recommend
+
 
 app = FastAPI(
     title="ARIMA/SARIMA Forecast API",
@@ -34,6 +38,7 @@ app.add_middleware(
 # Registrar routers
 app.include_router(exploration.router)
 app.include_router(forecast.router)
+app.include_router(recommend.router)
 
 
 @app.get("/", tags=["Health"])

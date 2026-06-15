@@ -6,7 +6,7 @@ Cualquier cambio aquí debe reflejarse en los tipos del frontend.
 """
 from typing import Literal, Optional
 from pydantic import BaseModel, Field
-
+from pydantic import BaseModel
 
 # ============================================================
 # Entrada: serie temporal que envía el frontend
@@ -143,3 +143,26 @@ class ForecastResponse(BaseModel):
 class ErrorResponse(BaseModel):
     detail: str
     error_type: Optional[str] = None
+
+
+
+
+class RecommendRequest(BaseModel):
+    summary: dict
+
+
+class SuggestedParams(BaseModel):
+    p: int
+    d: int
+    q: int
+    P: int
+    D: int
+    Q: int
+    s: int
+
+
+class RecommendResponse(BaseModel):
+    recommended_model: str
+    suggested_params: SuggestedParams
+    confidence: str
+    reasoning: str
